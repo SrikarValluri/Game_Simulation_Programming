@@ -88,7 +88,3 @@ WhoAmI( std::string &yourName, std::string &yourEmailAddress )
 	yourEmailAddress = "valluris@oregonstate.edu" ;
 }
 
-
-int main(){
-    return 0;
-}
