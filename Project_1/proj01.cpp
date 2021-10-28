@@ -20,7 +20,6 @@ WhatPartOfALivesInBDir( glm::vec3 a, glm::vec3 b )
     dot_product = glm::dot(a, bhat);
 
     return(dot_product * bhat);
-    // return(a);
 }
 
 
@@ -41,7 +40,6 @@ UnitSurfaceNormal( glm::vec3 q, glm::vec3 r, glm::vec3 s )
     vector2 = s - q;
 
     return(glm::normalize(glm::cross(vector1, vector2)));
-    // return(q);
 }
 
 // WORKING
@@ -81,7 +79,6 @@ IsPointInTriangle( glm::vec3 q, glm::vec3 r, glm::vec3 s, glm::vec3 p )
     {
         return(false);
     }
-    // return(true);
 }
 
 
@@ -90,7 +87,6 @@ float
 DistanceFromPointToPlane( glm::vec3 q, glm::vec3 r, glm::vec3 s, glm::vec3 p )
 {
     return glm::dot((p - q), glm::normalize(glm::cross(r, s)));
-    // return(2.0);
 }
 
 
