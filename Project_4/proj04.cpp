@@ -63,14 +63,17 @@ Bounce( float dt )
 
 		// the y collision with the floor involves a quadratic equation
 		// thus, there are 2 times to collision, tfloor1 and tfloor2:
+        float a_val = 0.5 * Gravity;
+        float b_val = Vynow;
+        float c_val = Ynow - YBOTTOM - RADIUS;
 
-		float tfloor1 = (-Vynow + sqrt(Vynow * Vynow - 2 * Gravity * (Ynow - YBOTTOM - RADIUS)))/(2 * Gravity);	// time to hit the floor
+		float tfloor1 = (-b_val + sqrt(b_val * b_val - 4 * a_val * c_val))/(2 * a_val);	// time to hit the floor
 		if( tfloor1 > EPSILON  &&  tfloor1 < tmin )
 		{
 			tmin = tfloor1;
 			which = HIT_FLOOR1;
 		}
-		float tfloor2 = (-Vynow - sqrt(Vynow * Vynow - 2 * Gravity * (Ynow - YBOTTOM - RADIUS)))/(2 * Gravity);		// time to hit the floor (note there are 2 answers)
+		float tfloor2 = (-b_val - sqrt(b_val * b_val - 4 * a_val * c_val))/(2 * a_val);		// time to hit the floor (note there are 2 answers)
 		if( tfloor2 > EPSILON  &&  tfloor2 < tmin )
 		{
 			tmin = tfloor2;
@@ -88,9 +91,9 @@ Bounce( float dt )
 		// if a bounce is going to occur, tmin takes the ball right up next to the surface:
 
 		Xnow  = Xnow + Vxnow*tmin;
-                Vxnow = Vxnow;
-                Ynow  = Ynow + Vynow*tmin + 0.5*Gravity*tmin*tmin;
-                Vynow = Vynow + Gravity*tmin;
+        Vxnow = Vxnow;
+        Ynow  = Ynow + Vynow*tmin + 0.5*Gravity*tmin*tmin;
+        Vynow = Vynow + Gravity*tmin;
 
 		// a "bounce trick":
 
@@ -113,23 +116,23 @@ Bounce( float dt )
 				return;
 
 			case HIT_LEFT:
-				Vxnow = Vxnow * EPSILON;
+				Vxnow = -Vxnow * CoefRest;
                 Vynow = Vynow;
 				break;
 
 			case HIT_RIGHT:
-				Vxnow = Vxnow * EPSILON;
+				Vxnow = -Vxnow * CoefRest;
                 Vynow = Vynow;
 				break;
 
 			case HIT_FLOOR1:
 				Vxnow = Vxnow;
-                Vynow = Vynow * EPSILON;
+                Vynow = -Vynow * CoefRest;
 				break;
 
 			case HIT_FLOOR2:
 				Vxnow = Vxnow;
-                Vynow = Vynow * EPSILON;
+                Vynow = -Vynow * CoefRest;
 				break;
 		}
 
